@@ -10,7 +10,7 @@ let cors=require('cors');
 let mongo=require('mongodb');
 const { query } = require('express');
 let MongoClient=mongo.MongoClient;
-let mongoUrl=process.env.MongoLive;
+let mongoUrl="mongodb+srv://shan:shan123@cluster0.4g8rx1o.mongodb.net/Lifestyle?retryWrites=true&w=majority";
 let bodyParser=require('body-parser')
 let db;
 // app.use(morgan('tiny'));
