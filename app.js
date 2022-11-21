@@ -10,6 +10,7 @@ let cors=require('cors');
 let mongo=require('mongodb');
 const { query } = require('express');
 let MongoClient=mongo.MongoClient;
+// let mongoUrl=process.env.MongoLocal;
 let mongoUrl="mongodb+srv://shan:shan123@cluster0.4g8rx1o.mongodb.net/Lifestyle?retryWrites=true&w=majority";
 let bodyParser=require('body-parser')
 let db;
@@ -23,6 +24,105 @@ app.use(bodyParser.json())
 
 app.get('/',(req,res)=>{
     res.send('<h1>This is from express</h1>');
+})
+// To get women brands
+app.get('/womenBrands',(req,res)=>{
+    db.collection('GirlsBrand').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get women category
+app.get('/womenCategory',(req,res)=>{
+    db.collection('Shopbycategorywomen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get women essential
+app.get('/womenEssential',(req,res)=>{
+    db.collection('Essentialwomen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get women must-haves
+app.get('/womenmust',(req,res)=>{
+    db.collection('Musthavewomen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get the brands
+app.get('/Brands',(req,res)=>{
+    db.collection('Brands').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+// To get men category
+app.get('/mencategory',(req,res)=>{
+    db.collection('shopcategorymen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get men Brands
+app.get('/menbrands',(req,res)=>{
+    db.collection('Brandsmen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get men picks
+app.get('/menpicks',(req,res)=>{
+    db.collection('picksmen').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get kids category
+app.get('/kidscategory',(req,res)=>{
+    db.collection('kidscategory').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get kids brands
+app.get('/kidsbrands',(req,res)=>{
+    db.collection('KidsBrand').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get kids footwear
+app.get('/kidsshoes',(req,res)=>{
+    db.collection('kidsfootwear').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get Beauty category
+app.get('/beautycategory',(req,res)=>{
+    db.collection('Beautycategory').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get Beauty bestsellers
+app.get('/beautybestsellers',(req,res)=>{
+    db.collection('BeautyBestseller').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+// To get Beauty best pics
+app.get('/beautypicks',(req,res)=>{
+    db.collection('Beautypicks').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
 })
 
 app.get('/listing/:Subcategoryid',(req,res)=>{
