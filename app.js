@@ -148,6 +148,15 @@ app.get('/listing/:Subcategoryid',(req,res)=>{
         res.send(result);
     })
 })
+
+// To get details of the page
+app.get('/details/:itemid',(req,res)=>{
+    let item_id=Number(req.params.itemid)
+    db.collection('products').find({item_id:item_id}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
 // To see brands wrt subcategory
 app.get('/Brands/:Subcategoryid',(req,res)=>{
     let query={};
