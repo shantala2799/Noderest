@@ -206,6 +206,44 @@ app.get('/listing/:Subcategoryid/:Shoptypeid',(req,res)=>{
     })
 })
 
+// sort by cost wrt shoptypeid
+app.get('/filter/:Shoptypeid',(req,res)=>{
+    let query={};
+    let sort={new_price:1}  //ASc order
+    // let Subcategoryid=Number(req.params.Subcategoryid)
+    let Shoptypeid=Number(req.params.Shoptypeid)
+    let Brandsid=Number(req.query.Brandsid)
+    let lcost=Number(req.query.lcost)
+    let hcost=Number(req.query.hcost)
+    if(req.query.sort){
+        sort={new_price:req.query.sort}
+    }
+    if(Brandsid&&lcost&&hcost){
+        query = {
+            // "Subcategory_id":Subcategoryid,
+            "Shoptype_id":Shoptypeid,
+            "Brands_id":Brandsid,
+            new_price:{$gt: lcost, $lt: hcost}
+        }
+    }
+    else if(lcost&&hcost){
+        query = {
+            // "Subcategory_id":Subcategoryid,
+            "Shoptype_id":Shoptypeid,
+            new_price:{$gt: lcost, $lt: hcost}
+        }
+    }
+    else{
+    query={
+        // "Subcategory_id":Subcategoryid,
+        "Shoptype_id":Shoptypeid
+    }
+    }
+    db.collection('products').find(query).sort(sort).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
 // Sort by cost wrt category
 app.get('/filter/:Subcategoryid/:Shoptypeid',(req,res)=>{
     let query={};
