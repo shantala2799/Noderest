@@ -125,19 +125,34 @@ app.get('/beautypicks',(req,res)=>{
     })
 })
 
-// proper discount without any subcategory
+// proper discount and rating without any subcategory
 app.get('/filterss/:Shoptypeid',(req,res)=>{
     let query={};
     let sort={discount:1}  //ASc order
     let Shoptypeid=Number(req.params.Shoptypeid)
     let discount = Number(req.query.discount);
+    let hidden_stars=Number(req.query.hidden_stars);
     if(req.query.sort){
         sort={discount:req.query.sort}
+        sort={hidden_stars:req.query.sort}
     }
-   if(discount){
+   if(discount&&hidden_stars){
         query = {
             "Shoptype_id":Shoptypeid,
+            discount:{$gt: discount},
+            hidden_stars:{$gt:hidden_stars}
+        }
+    }
+    else if(discount){
+        query={
+            "Shoptype_id":Shoptypeid,
             discount:{$gt: discount}
+        }
+    }
+    else if(hidden_stars){
+        query={
+            "Shoptype_id":Shoptypeid,
+            hidden_stars:{$gt:hidden_stars}
         }
     }
     else{
