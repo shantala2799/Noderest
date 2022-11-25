@@ -125,6 +125,36 @@ app.get('/beautypicks',(req,res)=>{
     })
 })
 
+// Sort by cost wrt brands with no category and shoptype
+app.get('/filters/:Brandsid',(req,res)=>{
+    let query={};
+    let sort={new_price:1}  //ASc order
+    // let Subcategoryid=Number(req.params.Subcategoryid)
+    // let Shoptypeid=Number(req.params.Shoptypeid)
+    let Brandsid=Number(req.params.Brandsid)
+    let lcost=Number(req.query.lcost)
+    let hcost=Number(req.query.hcost)
+    if(req.query.sort){
+        sort={new_price:req.query.sort}
+    }
+   if(lcost&&hcost){
+        query = {
+            // "Subcategory_id":Subcategoryid,
+            // "Shoptype_id":Shoptypeid,
+            "Brands_id":Brandsid,
+            new_price:{$gt: lcost, $lt: hcost}
+        }
+    }
+    else{
+    query={
+        "Brands_id":Brandsid
+    }
+    }
+    db.collection('products').find(query).sort(sort).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
 app.get('/listing/:Subcategoryid',(req,res)=>{
     let query={};
     let Subcategoryid=Number(req.params.Subcategoryid)
