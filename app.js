@@ -125,6 +125,31 @@ app.get('/beautypicks',(req,res)=>{
     })
 })
 
+// proper discount without any subcategory
+app.get('/filterss/:Shoptypeid',(req,res)=>{
+    let query={};
+    let sort={discount:1}  //ASc order
+    let Shoptypeid=Number(req.params.Shoptypeid)
+    let discount = Number(req.query.discount);
+    if(req.query.sort){
+        sort={discount:req.query.sort}
+    }
+   if(discount){
+        query = {
+            "Shoptype_id":Shoptypeid,
+            discount:{$gt: discount}
+        }
+    }
+    else{
+    query={
+        "Shoptype_id":Shoptypeid
+    }
+    }
+    db.collection('products').find(query).sort(sort).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
 // Sort by cost wrt brands with no category and shoptype
 app.get('/filters/:Brandsid',(req,res)=>{
     let query={};
