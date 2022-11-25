@@ -314,6 +314,48 @@ app.get('/filter/:Shoptypeid',(req,res)=>{
         res.send(result);
     })
 })
+
+// proper discount and rating wrt brandid without any subcategory
+app.get('/brandfilterss/:Brandsid',(req,res)=>{
+    let query={};
+    let sort={discount:1}  //ASc order
+    let Brandsid=Number(req.params.Brandsid)
+    let discount = Number(req.query.discount);
+    let hidden_stars=Number(req.query.hidden_stars);
+    if(req.query.sort){
+        sort={discount:req.query.sort}
+        sort={hidden_stars:req.query.sort}
+    }
+   if(discount&&hidden_stars){
+        query = {
+            "Brands_id":Brandsid,
+            discount:{$gt: discount},
+            hidden_stars:{$gt:hidden_stars}
+        }
+    }
+    else if(discount){
+        query={
+            "Brands_id":Brandsid,
+            discount:{$gt: discount}
+        }
+    }
+    else if(hidden_stars){
+        query={
+            "Brands_id":Brandsid,
+            hidden_stars:{$gt:hidden_stars}
+        }
+    }
+    else{
+    query={
+        "Brands_id":Brandsid
+    }
+    }
+    db.collection('products').find(query).sort(sort).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
 // Sort by cost wrt category
 app.get('/filter/:Subcategoryid/:Shoptypeid',(req,res)=>{
     let query={};
