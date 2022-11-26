@@ -25,6 +25,19 @@ app.use(bodyParser.json())
 app.get('/',(req,res)=>{
     res.send('<h1>This is from express</h1>');
 })
+
+// Order details
+app.post('/orderitems',(req,res)=>{
+    if(Array.isArray(req.body.id)){
+        db.collection('products').find({item_id:{$in:req.body.id}}).toArray((err,result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }else{
+        res.send('Invalid input')
+    }
+})
+
 // To get women brands
 app.get('/womenBrands',(req,res)=>{
     db.collection('GirlsBrand').find().toArray((err,result)=>{
