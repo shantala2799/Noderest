@@ -33,10 +33,9 @@ app.post('/orderitems',(req,res)=>{
             if(err) throw err;
             res.send(result);
         })
+    }else{
+        res.send('Invalid input')
     }
-    // }else{
-    //     res.send('Invalid input')
-    // }
 })
 
 // To get women brands
