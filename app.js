@@ -25,7 +25,7 @@ app.use(bodyParser.json())
 app.get('/',(req,res)=>{
     res.send('<h1>This is from express</h1>');
 })
-
+// [1,3]
 // Order details
 app.post('/orderitems',(req,res)=>{
     if(Array.isArray(req.body.id)){
@@ -33,9 +33,10 @@ app.post('/orderitems',(req,res)=>{
             if(err) throw err;
             res.send(result);
         })
-    }else{
-        res.send('Invalid input')
     }
+    // }else{
+    //     res.send('Invalid input')
+    // }
 })
 
 // To get women brands
