@@ -38,6 +38,15 @@ app.post('/orderitems',(req,res)=>{
     }
 })
 
+
+// To get only products
+app.get('/products',(req,res)=>{
+    db.collection('products').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
 // To get women brands
 app.get('/womenBrands',(req,res)=>{
     db.collection('GirlsBrand').find().toArray((err,result)=>{
