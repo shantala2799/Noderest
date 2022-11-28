@@ -147,6 +147,46 @@ app.get('/beautypicks',(req,res)=>{
     })
 })
 
+// Listing with no category
+app.get('/listingg',(req,res)=>{
+    let query={};
+    // let Subcategoryid=Number(req.query.Subcategoryid)
+    let Shoptypeid=Number(req.query.Shoptypeid)
+    // let Brandsid=Number(req.query.Brandsid)
+    if(Shoptypeid)
+    {
+        query={
+            // "Subcategory_id":Subcategoryid,
+            "Shoptype_id":Shoptypeid
+            // "Brands_id":Brandsid
+        }
+    }
+    db.collection('products').find(query).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+// Brands with no category
+app.get('/listinggg',(req,res)=>{
+    let query={};
+    // let Subcategoryid=Number(req.query.Subcategoryid)
+    // let Shoptypeid=Number(req.query.Shoptypeid)
+    let Brandsid=Number(req.query.Brandsid)
+    if(Brandsid)
+    {
+        query={
+            // "Subcategory_id":Subcategoryid,
+            // "Shoptype_id":Shoptypeid
+            "Brands_id":Brandsid
+        }
+    }
+    db.collection('products').find(query).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
 // proper discount and rating without any subcategory
 app.get('/filterss/:Shoptypeid',(req,res)=>{
     let query={};
