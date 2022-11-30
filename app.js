@@ -150,7 +150,7 @@ app.get('/beautypicks',(req,res)=>{
 // Listing with no category
 app.get('/listingg',(req,res)=>{
     let query={};
-    // let Subcategoryid=Number(req.query.Subcategoryid)
+    let Subcategoryid=Number(req.query.Subcategoryid)
     let Shoptypeid=Number(req.query.Shoptypeid)
     // let Brandsid=Number(req.query.Brandsid)
     if(Shoptypeid)
@@ -158,6 +158,13 @@ app.get('/listingg',(req,res)=>{
         query={
             // "Subcategory_id":Subcategoryid,
             "Shoptype_id":Shoptypeid
+            // "Brands_id":Brandsid
+        }
+    }
+    else if(Subcategoryid){
+        query={
+            "Subcategory_id":Subcategoryid,
+            // "Shoptype_id":Shoptypeid
             // "Brands_id":Brandsid
         }
     }
