@@ -28,15 +28,14 @@ app.get('/',(req,res)=>{
 // [1,3]
 // Order details
 app.post('/orderitems',(req,res)=>{
-    res.send(req);
-    // if(Array.isArray(req.body.id)){
-    //     db.collection('products').find({item_id:{$in:req.body.id}}).toArray((err,result)=>{
-    //         if(err) throw err;
-    //         res.send(result);
-    //     })
-    // }else{
-    //     res.send('Invalid input')
-    // }
+    if(Array.isArray(req.body.id)){
+        db.collection('products').find({item_id:{$in:req.body.id}}).toArray((err,result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }else{
+        res.send('Invalid input')
+    }
 })
 
 
